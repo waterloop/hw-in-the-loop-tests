@@ -17,9 +17,9 @@ def _monitor_bus(bus_obj: CANBus):
             # TODO: replace with python-can timestamps if
             #       this isn't goot enough
             dt_now = datetime.now()
-
-            bus_obj._log_file.write(f"[{datetime.now()}]: {frame.to_dict()}")
-            bus_obj._rx_callback(frame, datetime.now())
+            
+            bus_obj._log_file.write(f"{dt_now}, {frame.arb_id}, {frame.payload}\n")
+            bus_obj._rx_callback(frame, dt_now)
 
 class CANBus():
     def __init__(self, interface):
