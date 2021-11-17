@@ -26,3 +26,81 @@ def get_state_name(state_id: int):
         if STATE_IDS[k] == state_id:
             return k
     return "INVALID"
+
+ID_LUT = {}
+
+def decode_CONTROLLER_COMMAND(payload: list):
+    pass
+ID_LUT[0x000] = decode_CONTROLLER_COMMAND
+
+def decode_BMS_HEALTH_CHECK(payload: list):
+    pass
+ID_LUT[0x001] = decode_BMS_HEALTH_CHECK
+
+def decode_MOTOR_CONTROLLER_HEALTH_CHECK(payload: list):
+    pass
+
+def decode_MANUAL_CONTROL_A(payload: list):
+    pass
+
+def decode_MANUAL_CONTROL_B(payload: list):
+    pass
+
+def decode_MANUAL_CONTROL_C(payload: list):
+    pass
+
+def decode_BMS_FAULT_REPORT(payload: list):
+    pass
+
+def decode_BMS_STATE_CHANGE_ACK_NACK(payload: list):
+    pass
+
+def decode_BMS_DATA_1(payload: list):
+    pass
+
+def decode_BMS_DATA_2(payload: list):
+    pass
+
+def decode_BMS_DATA_3(payload: list):
+    pass
+
+def decode_MOTOR_CONTROLLER_FAULT_REPORT(payload: list):
+    pass
+
+def decode_MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK(payload: list):
+    pass
+
+def decode_MOTOR_CONTROLLER_DATA_1(payload: list):
+    pass
+
+def decode_MOTOR_CONTROLLER_DATA_2(payload: list):
+    pass
+
+def decode_RING_ENCODER(payload: list):
+    pass
+
+def decode_PRESSURE_SENSOR_HIGH(payload: list):
+    pass
+
+def decode_PRESSURE_SENSOR_LOW(payload: list):
+    pass
+
+def decode_PRESSURE_SENSOR_LOW_2(payload: list):
+    pass
+
+def decode_5_VOLTS(payload: list):
+    pass
+
+def decode_12_VOLTS(payload: list):
+    pass
+
+def decode_24_VOLTS(payload: list):
+    pass
+
+# This is something like 0x580
+def decode_ROBOTEQ_RESPONSE(payload: list):
+    pass
+
+# This is something like 0x600
+def decode_ROBOTEQ_COMMAND(payload: list):
+    pass
