@@ -45,3 +45,31 @@ class CANBus():
     def set_rx_callback(self, callback: Callable):
         self._rx_callback = callback
 
+    def send_canopen(self, node_id, is_query, empty_bytes, index, subindex, data):                                                                              
+        byte_0 = 0b00000000 | ((4 if is_query else 2) << 4) | (empty_bytes << 2)      
+        msg = can.Message(                                                            
+            arbitration_id=0x600 + node_id,
+            is_extended_id=False,
+            data=[
+                byte_0,
+                (index >> (8 * 0)) & 0b11111111,
+                (index >> (8 * 1)) & 0b11111111,
+                subindex,
+                (data >> (8 * 0)) & 0b11111111,
+                (data >> (8 * 1)) & 0b11111111,
+                (data >> (8 * 2)) & 0b11111111,
+                (data >> (8 * 3)) & 0b11111111
+            ]
+        )
+
+        self._bus.send(msg)
+
+    def send_set_motor_command(self, node_id, motor, throttle_percent):
+        self.send_canopen(
+            node_id = node_id,
+            is_query = False,
+            empty_bytes = 0,
+            index = 0x2000,
+            subindex = motor,
+            data = throttle_percent*10
+        )
