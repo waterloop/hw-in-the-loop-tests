@@ -1,3 +1,5 @@
+import struct
+
 ARBITRATION_IDS = {
     "CONTROLLER_COMMAND": 0x00,
     "BMS_STATE_CHANGE": 0x0B,
@@ -27,14 +29,20 @@ def get_state_name(state_id: int):
             return k
     return "INVALID"
 
+
+def _le_int_to_float(bytes_: list):
+    tmp = bytearray(bytes_)
+    tmp.reverse()
+    return struct.unpack(">f", tmp)[0]
+
 ID_LUT = {}
 
-def decode_CONTROLLER_COMMAND(payload: list):
-    pass
-ID_LUT[0x000] = decode_CONTROLLER_COMMAND
+def decode_STATE_CHANGE_REQ(payload: list):
+    print(f"STATE_CHANGE_REQ: STATE_ID = {STATE_IDS[payload[0]]}")
+ID_LUT[0x000] = decode_STATE_CHANGE_REQ
 
 def decode_BMS_HEALTH_CHECK(payload: list):
-    pass
+    print(f"")
 ID_LUT[0x001] = decode_BMS_HEALTH_CHECK
 
 def decode_MOTOR_CONTROLLER_HEALTH_CHECK(payload: list):
