@@ -73,42 +73,70 @@ def decode_BMS_DATA_3(payload: list):
     pass
 
 def decode_MOTOR_CONTROLLER_FAULT_REPORT(payload: list):
-    pass
+    print("Motor controller DNE lul")
+ID_LUT[0x014] = decode_MOTOR_CONTROLLER_FAULT_REPORT
 
 def decode_MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK(payload: list):
-    pass
+    print(f"MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK: STATE_ID = {STATE_IDS[payload[0]]}")
+ID_LUT[0x015] = decode_MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK
 
 def decode_MOTOR_CONTROLLER_DATA_1(payload: list):
-    pass
+    speed = _le_int_to_float(payload[0:3])
+    current = _le_int_to_float(payload[4:7])
+    print(f"MOTOR_CONTROLLER_DATA_1: POD_SPEED = {speed}, MOTOR_CURRENT = {current}")
+ID_LUT[0x016] = decode_MOTOR_CONTROLLER_DATA_1
 
 def decode_MOTOR_CONTROLLER_DATA_2(payload: list):
-    pass
+    current = _le_int_to_float(payload[0:3])
+    voltage = _le_int_to_float(payload[4:7])
+    print(f"MOTOR_CONTROLLER_DATA_2: BATTERY_CURRENT = {current}, BATTERY_VOLTAGE = {voltage}")
+ID_LUT[0x017] = decode_MOTOR_CONTROLLER_DATA_2
 
 def decode_RING_ENCODER(payload: list):
-    pass
+    speed = _le_int_to_float(payload[0:3])
+    print(f"RING_ENCODER: POD_SPEED = {speed}")
+ID_LUT[0x01f] = decode_RING_ENCODER
 
 def decode_PRESSURE_SENSOR_HIGH(payload: list):
-    pass
+    pressure = _le_int_to_float(payload[0:3])
+    print(f"PRESSURE_SENSOR_HIGH: PRESSURE = {pressure}")
+ID_LUT[0x020] = decode_PRESSURE_SENSOR_HIGH
 
 def decode_PRESSURE_SENSOR_LOW(payload: list):
-    pass
+    pressure = _le_int_to_float(payload[0:3])
+    print(f"PRESSURE_SENSOR_LOW: PRESSURE = {pressure}")
+ID_LUT[0x021] = decode_PRESSURE_SENSOR_LOW
 
 def decode_PRESSURE_SENSOR_LOW_2(payload: list):
-    pass
+    pressure = _le_int_to_float(payload[0:3])
+    print(f"PRESSURE_SENSOR_LOW_2: PRESSURE = {pressure}")
+ID_LUT[0x022] = decode_PRESSURE_SENSOR_LOW_2
 
 def decode_5_VOLTS(payload: list):
-    pass
+    current = _le_int_to_float(payload[0:3])
+    print(f"5V_CURRENT: CURRENT = {current}")
+ID_LUT[0x032] = decode_5_VOLTS
 
 def decode_12_VOLTS(payload: list):
-    pass
+    current = _le_int_to_float(payload[0:3])
+    print(f"12V_CURRENT: CURRENT = {current}")
+ID_LUT[0x032] = decode_12_VOLTS
 
 def decode_24_VOLTS(payload: list):
-    pass
+    current = _le_int_to_float(payload[0:3])
+    print(f"24V_CURRENT: CURRENT = {current}")
+ID_LUT[0x032] = decode_24_VOLTS
 
 # This is something like 0x580
-def decode_ROBOTEQ_RESPONSE(payload: list):
+def decode_ROBOTEQ_RESPONSE(ID: int, payload: list):
     pass
+ID_LUT[0x580] = decode_ROBOTEQ_RESPONSE
+ID_LUT[0x581] = decode_ROBOTEQ_RESPONSE
+ID_LUT[0x582] = decode_ROBOTEQ_RESPONSE
 
 # This is something like 0x600
 def decode_ROBOTEQ_COMMAND(payload: list):
     pass
+ID_LUT[0x600] = decode_ROBOTEQ_COMMAND
+ID_LUT[0x601] = decode_ROBOTEQ_COMMAND
+ID_LUT[0x602] = decode_ROBOTEQ_COMMAND
