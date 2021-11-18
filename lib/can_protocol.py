@@ -1,4 +1,5 @@
 import struct
+from datetime import datetime
 
 ARBITRATION_IDS = {
     "CONTROLLER_COMMAND": 0x00,
@@ -28,6 +29,13 @@ def get_state_name(state_id: int):
         if STATE_IDS[k] == state_id:
             return k
     return "INVALID"
+
+def print_can_msg(frame):
+    print(f"[{datetime.now().isoformat()}] ", end="")
+    if frame.arb_id in ID_LUT:
+        ID_LUT[frame.arb_id]()
+    else:
+        print(f"{frame.arb_id}: PAYLOAD = [{', '.join(frame.payload)}]")
 
 
 def _le_int_to_float(bytes_: list):
@@ -128,7 +136,7 @@ def decode_MOTOR_CONTROLLER_FAULT_REPORT(payload: list):
 ID_LUT[0x014] = decode_MOTOR_CONTROLLER_FAULT_REPORT
 
 def decode_MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK(payload: list):
-    _print(f"MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK: STATE_ID = {STATE_IDS[payload[0]]}")
+    print(f"MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK: STATE_ID = {STATE_IDS[payload[0]]}")
 
 ID_LUT[0x015] = decode_MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK
 
@@ -189,7 +197,7 @@ def decode_24_VOLTS(payload: list):
 ID_LUT[0x032] = decode_24_VOLTS
 
 # This is something like 0x580
-def decode_ROBOTEQ_RESPONSE(ID: int, payload: list):
+def decode_ROBOTEQ_RESPONSE(payload: list):
     pass
 
 ID_LUT[0x580] = decode_ROBOTEQ_RESPONSE
