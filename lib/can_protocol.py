@@ -198,7 +198,12 @@ ID_LUT[0x032] = decode_24_VOLTS
 
 # This is something like 0x580
 def decode_ROBOTEQ_RESPONSE(payload: list):
-    pass
+    index = (payload[1]) | (payload[2] << 8)
+    subindex = payload[3]
+
+    data = payload[4:7]
+
+    print(f"ROBOTEQ_RESPONSE: INDEX = {index}, SUBINDEX = {subindex}, DATA = [{', '.join(data)}]")
 
 ID_LUT[0x580] = decode_ROBOTEQ_RESPONSE
 ID_LUT[0x581] = decode_ROBOTEQ_RESPONSE
@@ -206,7 +211,13 @@ ID_LUT[0x582] = decode_ROBOTEQ_RESPONSE
 
 # This is something like 0x600
 def decode_ROBOTEQ_COMMAND(payload: list):
-    pass
+    index = (payload[1]) | (payload[2] << 8)
+    subindex = payload[3]
+
+    data = payload[4:7]
+
+    print(f"ROBOTEQ_COMMAND: INDEX = {index}, SUBINDEX = {subindex}, DATA = [{', '.join(data)}]")
+
 
 ID_LUT[0x600] = decode_ROBOTEQ_COMMAND
 ID_LUT[0x601] = decode_ROBOTEQ_COMMAND
