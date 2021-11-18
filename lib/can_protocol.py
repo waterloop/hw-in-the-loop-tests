@@ -33,7 +33,7 @@ def get_state_name(state_id: int):
 def print_can_msg(frame):
     print(f"[{datetime.now().isoformat()}] ", end="")
     if frame.arb_id in ID_LUT:
-        ID_LUT[frame.arb_id]()
+        ID_LUT[frame.arb_id](frame.payload)
     else:
         print(f"{frame.arb_id}: PAYLOAD = [{', '.join(frame.payload)}]")
 
