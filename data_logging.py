@@ -2,12 +2,11 @@ import csv
 import sys
 import time
 import click
-from lib import CANBus, ID_LUT
+from lib import CANBus, print_can_msg
 
 def on_rx(frame, timestamp):
     frame_dict = frame.to_dict()
-    # print(f"received {frame_dict} at {str(timestamp)}\n")
-    ID_LUT[frame.arb_id]()
+    print_can_msg(frame)
 
 @click.command()
 @click.option("--interface", help = "ex. can0", required = True)
